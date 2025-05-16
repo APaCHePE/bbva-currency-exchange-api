@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  backend-app:
+    container_name: backend-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4040:4040"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
