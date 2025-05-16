@@ -15,6 +15,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class JwtAuthenticationManager implements ServerSecurityContextRepository {
@@ -33,6 +34,7 @@ public class JwtAuthenticationManager implements ServerSecurityContextRepository
             System.out.println("Token: " + token);
             try {
                 Claims claims = JwtUtil.validateToken(token);
+                UUID userId = JwtUtil.extractUserId(token);
                 String username = claims.getSubject();
                 List<String> roles = (List<String>) claims.get("roles");
                 System.out.println("Username: " + username);
@@ -41,7 +43,7 @@ public class JwtAuthenticationManager implements ServerSecurityContextRepository
                         .map(SimpleGrantedAuthority::new)
                         .toList();
                 UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(username, null, authorities);
+                        new UsernamePasswordAuthenticationToken(username, userId, authorities);
                 return Mono.just(new SecurityContextImpl(authentication));
             } catch (Exception e) {
                 return Mono.empty();

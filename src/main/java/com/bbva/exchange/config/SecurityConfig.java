@@ -22,6 +22,7 @@ public class SecurityConfig {
                 .securityContextRepository(jwtAuthenticationManager)
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/auth/login").permitAll()
+                        .pathMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .build();
