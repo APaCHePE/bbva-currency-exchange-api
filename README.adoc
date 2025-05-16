@@ -1,0 +1,33 @@
+= bbva-currency-exchange-api
+
+Backend Java
+
+com.bbva.exchange
+├── config
+│   └── SecurityConfig.java
+├── controller
+│   └── AuthController.java
+│   └── ExchangeRateController.java
+├── dto
+│   └── AuthRequest.java
+│   └── AuthResponse.java
+│   └── ExchangeRateRequest.java
+│   └── ExchangeRateResponse.java
+├── exception
+│   └── GlobalExceptionHandler.java
+├── model
+│   └── ExchangeRate.java
+│   └── User.java
+│   └── Role.java
+│   └── AuditLog.java
+├── repository
+│   └── ExchangeRateRepository.java
+│   └── UserRepository.java
+│   └── RoleRepository.java
+│   └── AuditLogRepository.java
+├── service
+│   └── AuthService.java
+│   └── ExchangeRateService.java
+├── util
+│   └── JwtUtil.java
+└── ExchangeApplication.java

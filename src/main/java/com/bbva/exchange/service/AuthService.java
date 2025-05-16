@@ -33,7 +33,7 @@ public class AuthService {
                         .flatMap(userRole -> roleRepository.findById(userRole.getRoleId()))
                         .map(Roles::getName)
                         .collectList()
-                        .map(roles -> JwtUtil.generateToken(user.getUsername(), roles))
+                        .map(roles -> JwtUtil.generateToken(user.getId(), user.getUsername(), roles))
                 )
                 .map(token -> new AuthResponse(token))
                 .onErrorMap(e -> new BusinessException(e.getMessage()));

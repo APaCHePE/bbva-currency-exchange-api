@@ -7,14 +7,16 @@ import io.jsonwebtoken.security.Keys;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class JwtUtil {
 
-    public static String generateToken(String username, List<String> roles) {
+    public static String generateToken(UUID userId, String username, List<String> roles) {
         System.out.println("Generating token for user: " + username);
 
         return Jwts.builder()
                 .setSubject(username)
+                .claim("userId", userId.toString())
                 .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setIssuer(AppConstants.JWT_ISSUER)
@@ -38,4 +40,8 @@ public class JwtUtil {
         return (List<String>) claims.get("roles", List.class);
     }
 
+    public static UUID extractUserId(String token) {
+        Claims claims = validateToken(token);
+        return UUID.fromString(claims.get("userId", String.class));
+    }
 }

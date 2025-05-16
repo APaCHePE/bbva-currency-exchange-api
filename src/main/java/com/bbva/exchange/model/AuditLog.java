@@ -8,10 +8,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@Table("audit_log")
+@Table("audit_logs")
 public class AuditLog {
     @Id
     private UUID id;
+    private UUID userId;
     private String username;
     private String action;
     private LocalDateTime timestamp;
