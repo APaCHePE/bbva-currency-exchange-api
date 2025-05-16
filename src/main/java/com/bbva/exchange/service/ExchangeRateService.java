@@ -33,7 +33,6 @@ public class ExchangeRateService {
       UUID userId = (UUID) context.getAuthentication().getCredentials();
       System.out.println("Username: " + username);
       ExchangeRate rate = new ExchangeRate();
-      rate.setId(UUID.randomUUID());
       rate.setFromCurrency(request.getFromCurrency());
       rate.setToCurrency(request.getToCurrency());
       rate.setRate(request.getRate());
