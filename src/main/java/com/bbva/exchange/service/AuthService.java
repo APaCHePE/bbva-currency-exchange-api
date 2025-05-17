@@ -24,6 +24,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public Mono<AuthResponse> authenticate(AuthRequest request) {
+        System.out.println("Authenticating user: " + request.getUsername() + ", Password: " + request.getPassword());
         return userRepository.findByUsername(request.getUsername())
                 .switchIfEmpty(Mono.error(new BusinessException(AppConstants.INVALID_CREDENTIALS)))
                 .doOnNext(user -> System.out.println("User found: " + user.getUsername() + ", Password: " + user.getPassword()))
