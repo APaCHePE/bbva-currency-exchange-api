@@ -29,7 +29,7 @@ public class AuthController {
     summary = "Iniciar sesión",
     description = "Permite autenticar a un usuario utilizando sus credenciales y obtener un token JWT.",
     requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-      description = "Credenciales del usuario",
+      description = "Credenciales del usuario (username y password)",
       required = true,
       content = @Content(
         schema = @Schema(implementation = AuthRequest.class),
@@ -65,9 +65,33 @@ public class AuthController {
         )
       ),
       @ApiResponse(
-        responseCode = "401",
-        description = "Credenciales inválidas",
-        content = @Content(schema = @Schema(implementation = GenericResponse.class))
+        responseCode = "400",
+        description = "Datos incompletos o credenciales inválidas",
+        content = @Content(
+          schema = @Schema(implementation = GenericResponse.class),
+          examples = {
+            @ExampleObject(
+              name = "Credenciales inválidas",
+              value = """
+                                {
+                                    "success": false,
+                                    "message": "Invalid credentials",
+                                    "data": null
+                                }
+                                """
+            ),
+            @ExampleObject(
+              name = "Faltan datos",
+              value = """
+                                {
+                                    "success": false,
+                                    "message": "rawPassword cannot be null",
+                                    "data": null
+                                }
+                                """
+            )
+          }
+        )
       ),
       @ApiResponse(
         responseCode = "500",
